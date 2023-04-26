@@ -1,0 +1,105 @@
+****** \  EDA ****
+
+import numpy as np 
+import pandas as pd 
+import seaborn as sns 
+import matplotlib.pyplot as plt 
+import plotly.express as px 
+
+#Data Functions 
+data.info() 
+data.shape 
+data.size 
+data.describe() 
+data.sample() 
+data.nunique() 
+data.columns 
+
+#histogram 
+sns.distplot(data['categoryId'].dropna(), kde=False, bins=30)
+plt.xlabel('Category ID')
+plt.ylabel('Count')
+plt.title('Distribution of Youtube Video based on Category ID Age')
+plt.show()  
+
+#Bar Plot 
+class_counts = data['categoryId'].value_counts() 
+
+# Plot the number of passengers in each class 
+sns.barplot(class_counts.index, class_counts.values) 
+plt.xlabel('Category ID') 
+plt.ylabel('Count') 
+plt.title('Number of Videos in Each Category') 
+plt.show() 
+
+#Line Chart 
+class_fares = data.groupby('categoryId')['likes'].mean() 
+
+# Plot the average fare paid by passengers in each class 
+plt.plot(class_fares.index, class_fares.values, marker='o') 
+plt.xlabel('Category ID') 
+plt.ylabel('Average Likes') 
+plt.title('Average Likes in Each category') 
+plt.xticks(class_fares.index) 
+plt.grid(True) 
+plt.show() 
+
+#PieChart 
+class_counts = data['categoryId'].value_counts() 
+# Plot the number of passengers in each class as a pie chart 
+plt.pie(class_counts.values, labels=class_counts.index, autopct='%.1f%%') 
+plt.title('Proportion of Videos in Each Category') 
+plt.axis('equal') 
+plt.show()   
+
+#Scatter Plot 
+data = data.dropna(subset=['view_count', 'likes']) 
+
+# Plot the relationship between fare and age as a scatter plot 
+plt.scatter(data['view_count'], data['likes'], alpha=0.5)
+plt.xlabel('View Count') 
+plt.ylabel('Likes') 
+plt.title('Relationship between View Count and Likes') 
+plt.grid(True) 
+plt.show()   
+
+#For Dislikes Scatter 
+data = data.dropna(subset=['view_count', 'dislikes']) 
+# Plot the relationship between fare and age as a scatter plot 
+plt.scatter(data['view_count'], data['dislikes'], alpha=0.5) 
+plt.xlabel('View Count') 
+plt.ylabel('DisLikes') 
+plt.title('Relationship between View Count and DisLikes') 
+plt.grid(True) 
+plt.show() 
+
+#HeatMap 
+corr = data.corr() 
+# Plot the correlation matrix as a heat map 
+sns.heatmap(corr, annot=True, cmap='coolwarm') 
+plt.title('Correlation between Variables') 
+plt.show() 
+
+#Box Plot 
+plt.boxplot(data['categoryId'].dropna()) 
+plt.title('Distribution of Category ID') 
+plt.ylabel('Category ID') plt.show()
+
+
+************************************************************************8
+
+
+
+amazon prod_reviews
+
+
+GB_comments['reviewDescription'] = GB_comments['reviewDescription'].str.replace("[^a-zA-Z#]", " ")    
+
+GB_comments['reviewDescription'] = GB_comments['reviewDescription'].apply(lambda x: ' '.join([w for w in x.split() if len(w)>3]))
+
+GB_comments['reviewDescription'] = GB_comments['reviewDescription'].apply(lambda x:x.lower())  
+
+tokenized_tweet = GB_comments['reviewDescription'].apply(lambda x: x.split())
+tokenized_tweet.head()
+
+
